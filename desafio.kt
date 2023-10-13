@@ -1,21 +1,45 @@
-// [Template no Kotlin Playground](https://pl.kotl.in/WcteahpyN)
+package com.example.oo_dio
 
-enum class Nivel { BASICO, INTERMEDIARIO, DIFICIL }
+class Desafio {
 
-class Usuario
+    enum class Nivel { BASICO, INTERMEDIARIO, AVANCADO }
 
-data class ConteudoEducacional(var nome: String, val duracao: Int = 60)
+    enum class nivelUsuario { BASICO, INTERMEDIARIO, AVANCADO }
 
-data class Formacao(val nome: String, var conteudos: List<ConteudoEducacional>) {
+    data class Usuario(val nome: String, val nivelUsuario: nivelUsuario)
 
-    val inscritos = mutableListOf<Usuario>()
-    
-    fun matricular(usuario: Usuario) {
-        TODO("Utilize o parâmetro $usuario para simular uma matrícula (usar a lista de $inscritos).")
+    class Curso(val nome: String, val duracao: Int = 60, val nivel: Nivel = Nivel.BASICO)
+
+    class Formacao(val nome: String) {
+        val inscritos = mutableListOf<Usuario>()
+        val listaCursos = mutableListOf<Curso>()
+
+        fun cursos(conteudos: Curso) {
+            listaCursos.add(conteudos)
+        }
+
+        fun matricular(usuario: Usuario) {
+            inscritos.add(usuario)
+        }
     }
-}
 
-fun main() {
-    TODO("Analise as classes modeladas para este domínio de aplicação e pense em formas de evoluí-las.")
-    TODO("Simule alguns cenários de teste. Para isso, crie alguns objetos usando as classes em questão.")
+    fun main() {
+        val formacao = Formacao("Formação DIO")
+
+        val usuarioBruno = Usuario("Bruno", nivelUsuario.AVANCADO)
+        val usuarioGiovanna = Usuario("Giovanna", nivelUsuario.AVANCADO)
+
+        val cursoKotlin = Curso("Kotlin", 50, Nivel.INTERMEDIARIO)
+        val cursoJava = Curso("Java", 40, Nivel.BASICO)
+
+        formacao.matricular(usuarioBruno)
+        formacao.matricular(usuarioGiovanna)
+
+        formacao.cursos(cursoKotlin)
+        formacao.cursos(cursoJava)
+
+        // Adicione mais cursos, matricule mais usuários, etc.
+
+        // Não é necessário retornar nada no método main.
+    }
 }
